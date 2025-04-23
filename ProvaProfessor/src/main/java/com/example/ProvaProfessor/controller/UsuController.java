@@ -41,8 +41,39 @@ public class UsuController {
 
     //4. Update User menos username e senha
     @PutMapping("/{id}")
-    public ResponseEntity<UsuDTO> update(@PathVariable Long id, @RequestBody UsuDTO usuDTO){
+    public ResponseEntity<UsuDTO> updateUser(@PathVariable Long id, @RequestBody UsuDTO usuDTO){
         Optional<UsuDTO> usuDTOOptional = usuService.updateUser(id, usuDTO);
+        return usuDTOOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    //5. Update senha
+    @PutMapping("/{id}/senha")
+    public ResponseEntity<UsuDTO> updatePassword(@PathVariable Long id, @RequestBody UsuDTO usuDTO) {
+        Optional<UsuDTO> usuDTOOptional = usuService.updatePassword(id,usuDTO);
+        return usuDTOOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    //6. Deletar user
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id){
+        if(usuService.delete(id)){
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    //7. Buscar pelo cpf
+    @GetMapping("/{cpf}/buscaCpf")
+    public ResponseEntity<UsuDTO> getByCpf(@PathVariable String cpf) {
+        Optional<UsuDTO> usuDTOOptional = usuService.getByCPF(cpf);
+        return usuDTOOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    //8. Buscar pelo nome
+    @GetMapping("/{nome}/{sobrenome}")
+    public ResponseEntity<UsuDTO> getByNomeAndSobrenome(@PathVariable String nome, String sobrenome) {
+        Optional<UsuDTO> usuDTOOptional = usuService.getByNomeAndSobrenome(nome, sobrenome);
         return usuDTOOptional.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
