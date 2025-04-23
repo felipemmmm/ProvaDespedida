@@ -4,17 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,17 +17,17 @@ public class Usuario implements Serializable {
 
     private String nome;
     private String sobrenome;
-    private String CPF;
+    private String cpf;
     private String email;
     private String username;
     private int senha;
     private LocalDate dataNasc;
 
-    public Usuario(Long id, String nome, String sobrenome, String CPF, String email, String username, int senha, LocalDate dataNasc) {
+    public Usuario(Long id, String nome, String sobrenome, String cpf, String email, String username, int senha, LocalDate dataNasc) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.CPF = CPF;
+        this.cpf = cpf;
         this.email = email;
         this.username = username;
         this.senha = senha;
@@ -66,12 +61,12 @@ public class Usuario implements Serializable {
         this.sobrenome = sobrenome;
     }
 
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getEmail() {
